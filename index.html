@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chúc Mừng Năm Mới 2026</title>
+    <title>Gieo Quẻ Đầu Năm 2026</title>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🧧</text></svg>">
     <style>
         /* --- 1. CẤU HÌNH CHUNG --- */
@@ -18,7 +18,7 @@
         /* --- 2. NGỰA PHI --- */
         .horse-container {
             position: absolute; bottom: 10px; left: -300px;
-            z-index: 15; pointer-events: none;
+            z-index: 5; pointer-events: none;
             display: flex; gap: -20px;
             animation: runAcross 10s linear infinite;
         }
@@ -43,7 +43,6 @@
             font-size: 20px; cursor: pointer; z-index: 100;
             transition: transform 0.2s; animation: pulse-btn 2s infinite;
         }
-        .sound-control:hover { transform: scale(1.1); background: rgba(0, 0, 0, 0.8); }
         @keyframes pulse-btn { 0% { box-shadow: 0 0 0 0 rgba(255, 215, 0, 0.7); } 70% { box-shadow: 0 0 0 10px rgba(255, 215, 0, 0); } 100% { box-shadow: 0 0 0 0 rgba(255, 215, 0, 0); } }
 
         /* --- 4. BAO LÌ XÌ --- */
@@ -63,7 +62,7 @@
         .click-hint { font-size: 18px; font-weight: bold; margin-top: 10px; animation: blink 1.5s infinite; }
         @keyframes blink { 50% { opacity: 0.5; } }
 
-        /* --- 5. NỘI DUNG CHÍNH (LỜI CHÚC) --- */
+        /* --- 5. NỘI DUNG CHÍNH --- */
         #content {
             display: none; background: #fffaf0;
             padding: 25px 20px; border-radius: 20px;
@@ -94,86 +93,175 @@
         }
         .btn-lucky:hover { transform: scale(1.05); }
 
-        /* --- 6. MODAL XIN LỘC --- */
-        #luckyModal {
-            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.85); z-index: 1000;
-            justify-content: center; align-items: center;
-            animation: fadeIn 0.3s;
-        }
-        .lucky-card {
-            background: #fff; width: 320px; padding: 25px; border-radius: 15px;
-            text-align: center; border: 4px solid #ffd700;
-            box-shadow: 0 0 50px rgba(255, 215, 0, 0.6);
-            background-image: url('data:image/svg+xml,<svg width="20" height="20" xmlns="http://www.w3.org/2000/svg"><circle cx="2" cy="2" r="1" fill="%23ffd700" opacity="0.3"/></svg>');
-            transform: scale(0.8); animation: zoomIn 0.3s forwards;
-        }
-        @keyframes zoomIn { to { transform: scale(1); } }
-
-        .lucky-title { color: #d00000; font-size: 26px; font-weight: bold; margin-bottom: 10px; text-transform: uppercase; }
-        .lucky-badge { 
-            display: inline-block; background: #d00000; color: #ffd700; 
-            padding: 5px 15px; border-radius: 20px; font-weight: bold; margin-bottom: 20px;
-        }
-        .lucky-text { font-size: 16px; color: #333; line-height: 1.6; margin-bottom: 25px; text-align: left; padding: 0 10px; }
-        
-        .btn-get-money {
-            background: linear-gradient(to right, #d00000, #ff0000); 
-            color: #fff; border: none; padding: 12px 30px;
-            border-radius: 50px; cursor: pointer; font-weight: bold; font-size: 16px;
-            box-shadow: 0 4px 10px rgba(208, 0, 0, 0.4);
-            transition: transform 0.2s;
-        }
-        .btn-get-money:hover { transform: scale(1.05); }
-
-        /* --- 7. MÀN HÌNH QR CODE (FULL SCREEN OVERLAY) --- */
+        /* --- 6. MÀN HÌNH QR CODE (NỀN BLUR + GIỮ NGUYÊN BACKGROUND) --- */
         #qrOverlay {
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.95); z-index: 2000; /* Cao nhất */
+            /* Nền màu đỏ mờ + hiệu ứng Blur kính */
+            background: rgba(100, 0, 0, 0.5); 
+            backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+            z-index: 2000;
             justify-content: center; align-items: center; flex-direction: column;
             animation: fadeIn 0.5s;
         }
         
-        /* Nút Close X */
         .btn-close-qr {
             position: absolute; top: 30px; right: 30px;
             color: #fff; font-size: 40px; cursor: pointer;
             opacity: 0.8; transition: 0.3s;
+            text-shadow: 0 0 10px rgba(0,0,0,0.5);
         }
         .btn-close-qr:hover { opacity: 1; transform: scale(1.1); }
 
-        /* Tiêu đề QR */
         .qr-title-large { 
             color: #ffd700; font-size: 28px; font-weight: bold; 
-            margin-bottom: 30px; text-transform: uppercase; letter-spacing: 1px;
-            text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+            margin-bottom: 20px; text-transform: uppercase; letter-spacing: 1px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.6);
         }
 
-        /* Ảnh QR Trung Tâm */
         .qr-img-large {
-            width: 250px; height: 250px;
-            border: 4px solid #ffd700; border-radius: 15px;
-            box-shadow: 0 0 30px rgba(255, 215, 0, 0.3);
-            background: white; margin-bottom: 15px;
+            width: 260px; height: 260px;
+            border: 5px solid #ffd700; border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            background: white; margin-bottom: 10px;
         }
 
-        /* Note bên dưới */
         .qr-note {
             color: #fff; font-style: italic; font-size: 16px;
-            margin-bottom: 30px; opacity: 0.9;
+            margin-bottom: 25px; text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
         }
 
-        /* Nút Tải về bên dưới */
         .btn-download-bottom {
             display: flex; align-items: center; gap: 10px;
             padding: 10px 25px;
-            background: transparent; border: 2px solid #ffd700;
+            background: #d00000; border: 2px solid #ffd700;
             color: #ffd700; border-radius: 50px;
             text-decoration: none; font-weight: bold; font-size: 16px;
-            transition: 0.3s;
+            transition: 0.3s; box-shadow: 0 4px 10px rgba(0,0,0,0.3);
         }
-        .btn-download-bottom:hover {
-            background: #ffd700; color: #d00000;
+        .btn-download-bottom:hover { transform: scale(1.05); background: #b30000; }
+
+        /* --- 7. MÀN HÌNH CHỜ (XÓC THẺ) - THIẾT KẾ LẠI --- */
+        #shakingModal {
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.7); z-index: 3000;
+            justify-content: center; align-items: center; flex-direction: column;
+        }
+        
+        /* Ống xăm to hơn, đẹp hơn */
+        .fortune-container {
+            width: 100px; height: 160px;
+            background: linear-gradient(to right, #b30000, #d00000, #b30000);
+            border: 4px solid #ffd700;
+            border-radius: 10px 10px 30px 30px;
+            position: relative;
+            animation: shake-hard 0.4s ease-in-out infinite; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+        }
+        /* Miệng ống */
+        .fortune-container::before {
+            content: ''; position: absolute; top: -15px; left: 5px;
+            width: 82px; height: 25px;
+            background: #800000; border: 4px solid #ffd700;
+            border-radius: 50%; z-index: 2;
+        }
+        /* Thẻ bên trong */
+        .sticks-bundle {
+            position: absolute; top: -40px; left: 20px;
+            width: 60px; height: 60px; z-index: 1;
+        }
+        .stick-sample {
+            position: absolute; width: 10px; height: 80px;
+            background: #f0e68c; border-radius: 5px; border: 1px solid #d4a017;
+        }
+        .stick-sample:nth-child(1) { left: 10px; transform: rotate(-15deg); top: 10px; }
+        .stick-sample:nth-child(2) { left: 25px; transform: rotate(0deg); top: 0px; }
+        .stick-sample:nth-child(3) { left: 40px; transform: rotate(15deg); top: 10px; }
+
+        @keyframes shake-hard {
+            0% { transform: rotate(0deg) translateY(0); }
+            25% { transform: rotate(-10deg) translateY(-10px); }
+            50% { transform: rotate(0deg) translateY(0); }
+            75% { transform: rotate(10deg) translateY(10px); }
+            100% { transform: rotate(0deg) translateY(0); }
+        }
+        
+        .shaking-text {
+            color: #ffd700; font-size: 22px; font-weight: bold; margin-top: 40px;
+            text-shadow: 0 0 10px #d00000; animation: blink 1s infinite;
+        }
+
+        /* --- 8. MÀN HÌNH KẾT QUẢ (THẺ TRE - ĐÃ SỬA LỖI UI) --- */
+        #resultModal {
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.7); z-index: 3000;
+            justify-content: center; align-items: center;
+            animation: fadeIn 0.3s;
+        }
+
+        /* THẺ TRE LỚN (ĐẠI TỰ) - KHÔNG DÙNG VIẾT DỌC NỮA */
+        .bamboo-card {
+            width: 300px; /* Rộng ra để chứa chữ */
+            min-height: 450px;
+            background: #fdf5e6; /* Màu giấy cũ/gỗ sáng */
+            border: 8px solid #d4a017; /* Viền vàng */
+            border-radius: 15px;
+            position: relative;
+            display: flex; flex-direction: column; align-items: center;
+            padding: 0;
+            box-shadow: 0 0 50px rgba(255, 215, 0, 0.5);
+            transform: scale(0.1); opacity: 0;
+            animation: card-reveal 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+            overflow: hidden;
+        }
+
+        /* Header thẻ */
+        .card-header {
+            width: 100%; height: 70px;
+            background: #d00000;
+            display: flex; justify-content: center; align-items: center;
+            color: #ffd700; font-size: 35px; font-weight: 900;
+            border-bottom: 4px solid #d4a017;
+            text-transform: uppercase;
+        }
+
+        /* Thân thẻ */
+        .card-body {
+            padding: 20px; width: 100%; box-sizing: border-box;
+            text-align: center; color: #5c4033;
+            background-image: linear-gradient(#fdf5e6 1px, transparent 1px), linear-gradient(90deg, #fdf5e6 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+
+        .fortune-rank {
+            display: inline-block;
+            font-size: 20px; font-weight: bold; color: #d00000;
+            border: 2px solid #d00000; padding: 5px 15px; border-radius: 20px;
+            margin-bottom: 20px; text-transform: uppercase;
+        }
+
+        .fortune-content p {
+            font-size: 16px; margin: 10px 0; font-weight: 600;
+            border-bottom: 1px dashed #ccc; padding-bottom: 5px;
+        }
+        .fortune-content b { color: #d00000; font-size: 18px; }
+
+        .poem {
+            margin-top: 15px; font-style: italic; color: #800000; font-weight: bold;
+        }
+
+        /* Nút Nhận Lộc */
+        .btn-get-money-card {
+            margin-top: auto; margin-bottom: 20px;
+            background: linear-gradient(to right, #d00000, #ff0000); 
+            color: #fff; border: none; padding: 12px 30px;
+            border-radius: 50px; cursor: pointer; font-weight: bold;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3); font-size: 16px;
+            animation: pulse-btn 2s infinite;
+        }
+
+        @keyframes card-reveal {
+            0% { transform: translateY(200px) scale(0.5); opacity: 0; }
+            100% { transform: translateY(0) scale(1); opacity: 1; }
         }
 
         /* --- EFFECTS --- */
@@ -188,9 +276,44 @@
 
 <body onclick="playAudioForce()">
 
+    <div id="shakingModal">
+        <div class="fortune-container">
+            <div class="sticks-bundle">
+                <div class="stick-sample"></div>
+                <div class="stick-sample"></div>
+                <div class="stick-sample"></div>
+            </div>
+        </div>
+        <div class="shaking-text">Đang xin keo... 🙏</div>
+    </div>
+
+    <div id="resultModal">
+        <div class="bamboo-card">
+            <div class="card-header">
+                <div>Lộc</div>
+            </div>
+            
+            <div class="card-body">
+                <div class="fortune-rank">Thượng Thượng Cát</div>
+                
+                <div class="fortune-content">
+                    <p><b>🌸 Sự Nghiệp:</b><br>Quý nhân phù trợ, thăng tiến.</p>
+                    <p><b>❤️ Tình Duyên:</b><br>Viên mãn, hạnh phúc trọn vẹn.</p>
+                    <p><b>💰 Tài Lộc:</b><br>Tiền vào như nước, sung túc.</p>
+                </div>
+
+                <div class="poem">
+                    "Bính Ngọ năm mới phát tài<br>
+                    Bình an, may mắn, lộc lai đầy nhà"
+                </div>
+            </div>
+
+            <button class="btn-get-money-card" onclick="revealQR()">Nhận Lộc Ngay 🧧</button>
+        </div>
+    </div>
+
     <div id="qrOverlay">
         <div class="btn-close-qr" onclick="closeQR()">×</div>
-        
         <div class="qr-title-large">Lì xì may mắn</div>
         
         <img src="qr-viettel.jpg" alt="QR Code" class="qr-img-large">
@@ -200,23 +323,6 @@
         <a href="qr-viettel.jpg" download="LiXi_Tet_2026.jpg" class="btn-download-bottom">
             <span>⬇️</span> Tải mã QR về
         </a>
-    </div>
-
-    <div id="luckyModal">
-        <div class="lucky-card">
-            <div class="lucky-title">Quẻ Đầu Năm</div>
-            <div class="lucky-badge">Thượng Thượng Cát</div>
-            <div class="lucky-text">
-                <b>🌸 Sự Nghiệp:</b> Như diều gặp gió, quý nhân phù trợ.<br>
-                <b>❤️ Tình Duyên:</b> Viên mãn, ngọt ngào, thấu hiểu.<br>
-                <b>✨ Tài Lộc:</b> Sung túc, tiền vào như nước.<br>
-                <br>
-                <div style="text-align: center; font-style: italic; color: #d00000;">
-                    "Năm nay Bính Ngọ đại thành công<br>Vạn sự an nhiên, thỏa ước mong!"
-                </div>
-            </div>
-            <button class="btn-get-money" onclick="revealQR()">Nhận Lộc Ngay 🧧</button>
-        </div>
     </div>
 
     <div id="soundBtn" class="sound-control" onclick="toggleSound(event)">🔇</div>
@@ -241,7 +347,7 @@
             "Chúc em 1 năm mới 2026 sức khỏe - bình an - may mắn - mọi điều đều được như ý - mọi dự định kế hoạch đều được suôn sẻ, thuận lợi"
         </div>
 
-        <div class="btn-lucky" onclick="openLucky()">
+        <div class="btn-lucky" onclick="startShaking()">
             ✨ Rút Quẻ Lộc Đầu Năm 🧧
         </div>
     </div>
@@ -288,14 +394,21 @@
             document.getElementById('content').style.display = 'block';
         }
 
-        // --- LOGIC MỚI: RÚT QUẺ & HIỆN QR OVERLAY ---
-        function openLucky() {
-            document.getElementById('luckyModal').style.display = 'flex';
+        // --- LOGIC XIN KEO & RÚT QUẺ ---
+        function startShaking() {
+            // Hiện màn hình xóc thẻ
+            document.getElementById('shakingModal').style.display = 'flex';
+            
+            // Sau 3 giây thì hiện kết quả
+            setTimeout(function() {
+                document.getElementById('shakingModal').style.display = 'none';
+                document.getElementById('resultModal').style.display = 'flex';
+            }, 3000);
         }
 
         function revealQR() {
-            // Ẩn modal rút quẻ
-            document.getElementById('luckyModal').style.display = 'none';
+            // Ẩn modal kết quả
+            document.getElementById('resultModal').style.display = 'none';
             // Ẩn màn hình lời chúc (Content)
             document.getElementById('content').style.display = 'none';
             // Hiện màn hình QR Overlay
@@ -305,7 +418,7 @@
         function closeQR() {
             // Ẩn màn hình QR
             document.getElementById('qrOverlay').style.display = 'none';
-            // Hiện lại màn hình lời chúc
+            // Hiện lại màn hình lời chúc để rút lại nếu muốn
             document.getElementById('content').style.display = 'block';
         }
 
