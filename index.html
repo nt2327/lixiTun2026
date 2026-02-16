@@ -3,148 +3,166 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chúc Mừng Năm Mới Bính Ngọ 2026</title>
+    <title>Chúc Mừng Năm Mới 2026</title>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🧧</text></svg>">
     <style>
-        /* Cấu hình Background và Font chữ */
+        /* --- CẤU HÌNH GIAO DIỆN --- */
         body {
             margin: 0; padding: 0; display: flex; justify-content: center; align-items: center;
             height: 100vh;
-            /* Thay 'background-ngua.jpg' bằng ảnh nền của bạn */
+            /* Ảnh nền con ngựa */
             background: url('background-ngua.jpg') no-repeat center center/cover;
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            font-family: 'Segoe UI', sans-serif;
             overflow: hidden; text-align: center; color: white;
         }
-        /* Lớp phủ màu đỏ mờ để chữ dễ đọc hơn trên nền ảnh */
+        
+        /* Lớp phủ tối màu để chữ và bao lì xì nổi bật hơn */
         .overlay {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(180, 20, 20, 0.7); /* Màu đỏ tối bán trong suốt */
+            background: rgba(0, 0, 0, 0.5); /* Độ tối 50% */
             z-index: 0;
         }
 
-        /* Hiệu ứng bao lì xì */
+        /* --- BAO LÌ XÌ --- */
         #envelope {
-            width: 260px; height: 360px;
-            background: linear-gradient(135deg, #ff2e2e 0%, #d41414 100%);
-            border: 4px solid #ffcc00;
+            width: 280px; height: 380px;
+            background: linear-gradient(135deg, #d90429 0%, #ef233c 100%);
+            border: 4px solid #ffd700; /* Viền vàng kim loại */
             border-radius: 20px; cursor: pointer; display: flex; flex-direction: column;
             justify-content: center; align-items: center;
-            box-shadow: 0 15px 40px rgba(0,0,0,0.6);
-            transition: all 0.3s ease; z-index: 10;
+            box-shadow: 0 10px 30px rgba(255, 215, 0, 0.3);
+            transition: transform 0.3s; z-index: 10;
             position: relative;
         }
-        #envelope:hover { transform: scale(1.05) translateY(-10px); box-shadow: 0 20px 50px rgba(255, 204, 0, 0.4); }
-        #envelope h2 { font-size: 22px; margin-top: 20px; padding: 0 15px; line-height: 1.4; }
+        #envelope:hover { transform: scale(1.05); }
+        #envelope h2 { font-size: 20px; color: #ffd700; margin-top: 15px; padding: 0 10px; line-height: 1.5; text-shadow: 1px 1px 2px black; }
 
-        /* Nội dung sau khi mở */
+        /* --- NỘI DUNG BÊN TRONG --- */
         #content {
-            display: none; background: rgba(255, 255, 255, 0.96); padding: 35px 25px;
-            border-radius: 25px; box-shadow: 0 0 60px rgba(255, 204, 0, 0.5);
-            max-width: 90%; width: 400px; animation: popIn 0.8s cubic-bezier(0.68, -0.55, 0.27, 1.55);
-            z-index: 10; color: #333; position: relative;
-            border: 3px solid #ffcc00;
+            display: none; background: #fffaf0; /* Màu kem sáng */
+            padding: 30px 20px; border-radius: 15px;
+            box-shadow: 0 0 50px rgba(255, 215, 0, 0.6);
+            max-width: 90%; width: 380px;
+            animation: popIn 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            z-index: 10; color: #8b0000; position: relative;
+            border: 3px solid #b22222;
         }
         @keyframes popIn { 0% { opacity: 0; transform: scale(0.5); } 100% { opacity: 1; transform: scale(1); } }
 
-        /* Typography & Elements */
-        h1.main-title { color: #d41414; margin-bottom: 5px; font-size: 26px; font-weight: bold; }
-        .horse-icons { font-size: 30px; margin-bottom: 15px; letter-spacing: 5px; }
-        .wishes { font-size: 18px; line-height: 1.6; color: #555; font-style: italic; margin: 20px 0; font-weight: 500; }
-        .qr-title { color: #d41414; font-weight: bold; margin-bottom: 10px; font-size: 18px; }
-        .qr-code { width: 200px; height: 200px; border: 4px solid #ffcc00; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+        /* --- CÁC THÀNH PHẦN CON --- */
+        h1.title-tet { color: #d00000; font-size: 24px; font-weight: bold; margin-bottom: 5px; text-transform: uppercase; }
+        .horse-icon { font-size: 35px; margin: 10px 0; letter-spacing: 10px; }
+        
+        .wishes { 
+            font-size: 16px; line-height: 1.6; color: #333; 
+            font-style: italic; font-weight: 500;
+            background: #fff; padding: 15px; border-radius: 10px;
+            border: 1px dashed #d00000; margin: 15px 0;
+        }
+
+        .qr-section-title { color: #d00000; font-weight: bold; margin-top: 20px; font-size: 18px; }
+        .qr-img { width: 180px; height: 180px; border: 3px solid #ffd700; border-radius: 10px; margin: 10px 0; }
 
         /* Nút tải xuống */
-        .download-btn {
-            display: inline-block; margin-top: 15px; padding: 10px 25px;
-            background-color: #ffcc00; color: #d41414; text-decoration: none;
-            font-weight: bold; border-radius: 50px; box-shadow: 0 4px 10px rgba(255, 204, 0, 0.4);
-            transition: 0.3s; font-size: 16px; border: 2px solid transparent;
+        .btn-download {
+            display: inline-block; padding: 10px 20px;
+            background: #d00000; color: #ffd700; text-decoration: none;
+            font-weight: bold; border-radius: 25px; margin-top: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.2); transition: 0.2s;
         }
-        .download-btn:hover { background-color: #fff; border-color: #ffcc00; transform: translateY(-3px); }
-        .download-icon { margin-right: 8px; }
+        .btn-download:hover { background: #b30000; transform: translateY(-2px); }
 
-        /* Hiệu ứng hoa đào rơi */
-        .flower { position: absolute; top: -50px; pointer-events: none; z-index: 1; opacity: 0.8; }
-        @keyframes fall { 
-            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
-            100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
-        }
+        /* Hiệu ứng hoa rơi */
+        .flower { position: absolute; top: -10vh; z-index: 1; pointer-events: none; opacity: 0.8; }
     </style>
 </head>
-<body>
+<body onclick="playAudioForce()">
+
     <div class="overlay"></div>
 
     <div id="envelope" onclick="openGift()">
-        <div style="font-size: 90px; filter: drop-shadow(0 5px 5px rgba(0,0,0,0.2));">🧧</div>
-        <h2 style="color: #ffcc00;">Ấn vào đây để nhận <br> điều bất ngờ nha ^^</h2>
-        <p style="color: white; font-size: 14px; margin-top: 10px;">(Chạm nhẹ để mở)</p>
+        <div style="font-size: 80px; filter: drop-shadow(2px 4px 6px rgba(0,0,0,0.3));">🧧</div>
+        <h2>Ấn vào đây để nhận <br> điều bất ngờ nha ^^</h2>
+        <div style="margin-top: 10px; font-size: 30px;">🐎</div>
     </div>
 
     <div id="content">
-        <h1 class="main-title">Chúc Mừng Năm Mới 2026!</h1>
-        <div class="horse-icons">🐎🐎🐎</div>
+        <h1 class="title-tet">Chúc Mừng Năm Mới 2026!</h1>
+        <div class="horse-icon">🐎 🐎 🐎</div>
         
-        <p class="wishes">"Chúc em 1 năm mới 2026 sức khỏe - bình an - may mắn - mọi điều đều được như ý - mọi dự định kế hoạch đều được suôn sẻ, thuận lợi"</p>
-        
-        <hr style="border: 0; border-top: 1px dashed #ffcc00; margin: 20px 0;">
+        <div class="wishes">
+            "Chúc em 1 năm mới 2026 sức khỏe - bình an - may mắn - mọi điều đều được như ý - mọi dự định kế hoạch đều được suôn sẻ, thuận lợi"
+        </div>
 
-        <p class="qr-title">Lì xì may mắn đầu xuân nha</p>
-        
-        <img src="qr-viettel.jpg" alt="Mã QR Lì Xì" class="qr-code" id="qrImage">
+        <div class="qr-section-title">Lì xì may mắn đầu xuân nha</div>
+        <img src="qr-viettel.jpg" alt="QR Code" class="qr-img">
         
         <br>
-        <a href="qr-viettel.jpg" download="LiXi_Tet_BinhNgo_2026" class="download-btn">
-            <span class="download-icon">⬇️</span> Tải ảnh QR
+        <a href="qr-viettel.jpg" download="LiXi_Tet_2026.jpg" class="btn-download">
+            ⬇️ Tải ảnh về máy
         </a>
     </div>
 
-    <audio id="tetMusic" loop preload="auto">
+    <audio id="tetMusic" loop>
         <source src="nhac-tet.mp3" type="audio/mpeg">
     </audio>
 
     <script>
-        // Hàm chạy ngay khi web tải xong
+        // --- 1. XỬ LÝ NHẠC (Quan trọng) ---
+        var music = document.getElementById('tetMusic');
+        var isPlaying = false;
+
+        // Thử tự động phát ngay khi tải trang (thường sẽ bị chặn)
         window.onload = function() {
-            // Bắt đầu tạo mưa hoa đào ngay lập tức
-            setInterval(createFlower, 400); 
+            music.play().then(() => {
+                isPlaying = true;
+            }).catch(e => {
+                console.log("Trình duyệt chặn Autoplay, chờ tương tác người dùng.");
+            });
+            
+            // Bắt đầu hiệu ứng hoa rơi ngay lập tức
+            setInterval(createFlower, 300);
         };
 
-        function openGift() {
-            document.getElementById('envelope').style.display = 'none';
-            document.getElementById('content').style.display = 'block';
-            
-            // Phát nhạc ngay khi bấm mở (Cách chắc chắn nhất)
-            var music = document.getElementById('tetMusic');
-            music.volume = 1.0; // Đảm bảo âm lượng max
-            music.play().catch(error => {
-                console.log("Trình duyệt chặn phát nhạc: " + error);
-                // Dự phòng: Nếu vẫn bị chặn, lần chạm tiếp theo vào màn hình sẽ phát
-                document.body.addEventListener('click', function() {
-                    music.play();
-                }, { once: true });
-            });
+        // Hàm này chạy khi chạm BẤT CỨ ĐÂU trên màn hình
+        function playAudioForce() {
+            if (!isPlaying) {
+                music.play();
+                isPlaying = true;
+            }
         }
 
-        // Hàm tạo hoa đào rơi
+        // --- 2. XỬ LÝ MỞ QUÀ ---
+        function openGift() {
+            // Đảm bảo nhạc chạy nếu chưa chạy
+            playAudioForce();
+
+            // Chuyển cảnh
+            document.getElementById('envelope').style.display = 'none';
+            document.getElementById('content').style.display = 'block';
+        }
+
+        // --- 3. HIỆU ỨNG HOA ĐÀO RƠI ---
         function createFlower() {
             const flower = document.createElement('div');
             flower.className = 'flower';
-            // Random giữa hoa đào (🌸) và cánh hoa (💮)
             flower.innerHTML = Math.random() > 0.5 ? '🌸' : '💮';
-            
-            // Random vị trí và kích thước
             flower.style.left = Math.random() * 100 + 'vw';
-            const size = Math.random() * 20 + 15; // Kích thước từ 15px đến 35px
-            flower.style.fontSize = size + 'px';
+            flower.style.fontSize = (Math.random() * 20 + 15) + 'px';
+            flower.style.animation = `fall ${Math.random() * 5 + 5}s linear forwards`;
             
-            // Random thời gian rơi (từ 6s đến 11s)
-            const duration = Math.random() * 5 + 6;
-            flower.style.animation = `fall ${duration}s linear forwards`;
-
             document.body.appendChild(flower);
             
-            // Xóa hoa sau khi rơi xong để nhẹ máy
-            setTimeout(() => { flower.remove(); }, duration * 1000);
+            // CSS Animation bằng JS để linh hoạt
+            const style = document.createElement('style');
+            style.innerHTML = `
+                @keyframes fall {
+                    to { transform: translateY(110vh) rotate(${Math.random() * 360}deg); }
+                }
+            `;
+            document.head.appendChild(style);
+
+            setTimeout(() => { flower.remove(); }, 10000);
         }
     </script>
 </body>
